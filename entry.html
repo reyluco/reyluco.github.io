@@ -1,0 +1,214 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>登錄學生成績</title>
+<link rel="stylesheet" type="text/css" href="css/project1.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+<style type="text/css">
+  form label {
+    display: inline-block;
+    width: 50px;
+  }
+
+  form div {
+    margin-bottom: 5px;
+  }
+
+  .error {
+    color: red;
+    margin-left: 5px;
+  }
+
+  label.error {
+    display: inline;
+  }
+</style>
+</head>
+  
+<body>
+<button class="button button2" onclick="location.href='index.html'" type="button"> 回系統主畫面 </button>
+<button class="button button2" onclick="location.href='#'" type="button"> 登錄學生成績 </button>
+<button class="button button2" onclick="location.href='showdata1.php'" type="button"> 顯示成績紀錄 </button>
+<button class="button button2" onclick="location.href='showdata2.php'" type="button"> 顯示統計結果 </button>
+<br>
+<h1>登錄學生成績</h1>
+<script>
+  $(function(){
+    $('#form').validate({
+    /* 常用檢測屬性    
+    (1)required: true  必填
+    (2)number: true  只能輸入數字格式(包括小數)
+    (3)digits:true  只能輸入整數
+    (4)minvalue: 3  不能小於3
+    (5)maxvalue: 100  最大不超過100
+    (6)rangeValue:[50,100]  值範圍為50~100
+    (7)minlength: 5  最小長度(中文字算一個字符)
+    (8)maxlength: 10  最大長度(中文字算一個字符)
+    (9)rangelength:[5,10]  長度範圍為5至10位(中文字算一個字符)
+    (10)上面的 minLength, maxLength, rangeLength這三項除了
+      text input之外還可以用於 checkbox,select 這兩種控件
+    (11)email: true  電子郵件格式
+    (12)equalTo: "#field"  與#field值相同
+    (13)dateISO: true  日期型，格式為 1998/01/22 1999-12-12
+    (14)url: 網址格式 https://www.minwt.com
+    (15)noSpace: 空白 
+    */
+    onkeyup: function(element, event) {
+      //去除左側空白
+      var value = this.elementValue(element).replace(/^\s+/g, "");
+      $(element).val(value);
+    },
+    rules: {
+      stNo: {
+        required: true,
+        number: true,
+        minlength: 9,
+        maxlength: 9        
+      },
+      stName: {
+        required: true
+      },      
+      score1:{
+        required: true,
+        number: true,
+        min: 0,
+        max: 100        
+      },
+      score2:{
+        required: true,
+        number: true,
+        min: 0,
+        max: 100        
+      },
+      score3:{
+        required: true,
+        number: true,
+        min: 0,
+        max: 100        
+      }
+    },
+    messages: {
+      stNo: {        
+        required:'必填',
+        number:'學號必須為數字',                
+        minlength:'學號不得少於9碼',
+        maxlength:'學號不得多於9碼'                
+      },
+      stName: {
+        required:'必填'
+      },      
+      score1: {
+        required:'必填',
+        number:'成績必須為數字',
+        min:'成績不得小於0',
+        max:'成績不得大於100'         
+      },
+      score2: {
+        required:'必填',
+        number:'成績必須為數字',
+        min:'成績不得小於0',
+        max:'成績不得大於100'         
+      },      
+      score3: {
+        required:'必填',
+        number:'成績必須為數字',
+        min:'成績不得小於0',
+        max:'成績不得大於100'        
+      }
+    },
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+});
+</script>
+
+<form id="form" method="post" action="process.php">
+<div>
+  1. 學號：
+  <input type="text" name="stNo" size="16" maxlength="9">
+</div>
+<div>    
+  2. 姓名：
+  <input type="text" name="stName" size="16" maxlength="10">
+</div>
+<div>    
+  3. 生理性別：
+  <input type="radio" name="gender" value="M" checked>男    
+  <input type="radio" name="gender" value="F">女  
+</div>
+<div>
+  4. 年級：
+  <input type="radio" name="grade" value="1" checked>一年級    
+  <input type="radio" name="grade" value="2">二年級
+  <input type="radio" name="grade" value="3">三年級 
+  <input type="radio" name="grade" value="4">四年級       
+</div>
+<div>  
+  5. 生日：
+  <select name="dob_year">
+  <script language="javascript" type="text/javascript">
+    for (var year=1990; year<=2000; year++) {
+      document.write("<option value='"+year+"'>" + year + "</option>");
+    }
+  </script>
+  </select> 年
+       
+  <select name="dob_month">
+  <script language="javascript" type="text/javascript">
+    for (var month=1; month<=12; month++) {
+      document.write("<option value='"+month+"'>" + month + "</option>");
+    }
+  </script>
+  </select> 月
+        
+  <select name="dob_day">
+  <script language="javascript" type="text/javascript">
+    for (var day=1; day<=31; day++) {
+      document.write("<option value='"+day+"'>" + day + "</option>");
+    }
+  </script>
+  </select> 日
+</div>
+<div>  
+  6. 系別：
+  <select name="department">
+    <option value="D01">物理治療學系</option>
+    <option value="D02">職能治療學系</option>
+    <option value="D03">醫學檢驗生物技術學系</option>
+    <option value="D04">醫學影像暨放射科學系</option>        
+    <option value="D05">公共衛生學系</option>
+    <option value="D06">醫務管理暨醫療資訊學系</option>
+  </select>
+</div>
+<div>  
+  7. 請勾選您參加的社團(可複選)：<br>
+  <input type="checkbox" value="書法社" name="club[]" checked> 書法社
+  <input type="checkbox" value="橋藝社" name="club[]"> 橋藝社 
+  <input type="checkbox" value="籃球社" name="club[]"> 籃球社
+  <input type="checkbox" value="電腦社" name="club[]"> 電腦社 
+  <input type="checkbox" value="合唱團" name="club[]"> 合唱團    
+</div>
+<div>        	
+  8. 文學創作：
+  <input type="text" name="score1" size="16" maxlength="3">
+</div>
+<div>  
+  9. 英文閱讀：  
+  <input type="text" name="score2" size="16" maxlength="3">
+</div>
+<div>  
+  10. 程式設計：    
+  <input type="text" name="score3" size="16" maxlength="3">
+</div>
+<br> 
+<div>  
+  <input type="submit" name="button1" value=" 開始計算成績 ">
+  <input type="reset" name="button2" value=" 重新填寫資料 "> 
+</div>
+</form>
+</body>
+</html>
+
